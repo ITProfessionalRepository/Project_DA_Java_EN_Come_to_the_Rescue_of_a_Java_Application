@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface ISymptomWriter {
     /**
-     * This method write a file where symptoms are count and order by alphabetic order.
+     * This method write a result treatment file.
      *
-     * @param symptomsListe
-     * @param uniqueSymptomsListe
+     * @param symptomsList
+     * @param uniqueSymptomsList
      */
-    public void writeSymptoms(List<String> symptomsListe, List<String>uniqueSymptomsListe) ;
+    public void writeSymptoms(List<String> symptomsList, List<String>uniqueSymptomsList) ;
 }

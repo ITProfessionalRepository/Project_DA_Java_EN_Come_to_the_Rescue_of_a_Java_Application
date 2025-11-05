@@ -6,17 +6,29 @@ import java.util.List;
 
 public class WriteSymptomDataToFile implements ISymptomWriter {
 
+    /**
+     * This method provide a result treatment text file named "result.out".
+     * In this file symptoms are ordered by alphabetic order and have been count.
+     * The file is in src folder.
+     *
+     * For working this method take in parameters the lists provide by methods,
+     * getSymptoms and symptomsUniqueList.
+     *
+     * @param symptomsList
+     * @param uniqueSymptomsList
+     */
+
     @Override
-    public void writeSymptoms(List<String> symptomsListe, List<String> uniqueSymptomsListe) {
+    public void writeSymptoms(List<String> symptomsList, List<String> uniqueSymptomsList) {
         try {
             // Création du fichier de sortie
             FileWriter writer = new FileWriter("result.out");
 
             writer.write("File name: result.out " + "\n" +
                     "Symptoms count and sort by alphabetical order :" + "\n" + "\n");
-            for (String symptomLine : uniqueSymptomsListe) {
+            for (String symptomLine : uniqueSymptomsList) {
                 int count = 0;
-                for (String symptomOnWork : symptomsListe) {
+                for (String symptomOnWork : symptomsList) {
                     if (symptomOnWork.equals(symptomLine)) {
                         count++;
                     }
