@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+
 
 /**
  * Simple brute force implementation
@@ -12,36 +14,52 @@ import java.util.List;
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
-	private String filepath;
-	
-	/**
-	 * 
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
-	 */
-	public ReadSymptomDataFromFile (String filepath) {
-		this.filepath = filepath;
-	}
-	
-	@Override
-	public List<String> GetSymptoms() {
-		ArrayList<String> result = new ArrayList<String>();
-		
-		if (filepath != null) {
-			try {
-				BufferedReader reader = new BufferedReader (new FileReader(filepath));
-				String line = reader.readLine();
-				
-				while (line != null) {
-					result.add(line);
-					line = reader.readLine();
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
 
+    public List<String> getSymptoms() {
+        List<String> symptomsListe = new ArrayList<>();
+
+        try (BufferedReader reader_1 = new BufferedReader(new FileReader("symptoms.txt"))) {
+            String line;
+
+            while ((line = reader_1.readLine()) != null) {
+                symptomsListe.add(line.trim().toLowerCase());
+            }
+
+        } catch (IOException e) {
+            System.err.println("error during file reading : " + e.getMessage());
+        }
+        return symptomsListe;
+    }
+
+    public List<String> symptomsUniqueListe(List<String> symptomsListe) {
+
+        // Liste des symptômes uniques
+        List<String> uniqueSymptomsListe = new ArrayList<>();
+        for (String symptom : symptomsListe) {
+            if (!uniqueSymptomsListe.contains(symptom)) {
+                uniqueSymptomsListe.add(symptom);
+            }
+        }
+
+        // Tri alphabétique
+        Collections.sort(uniqueSymptomsListe);
+
+        return uniqueSymptomsListe;
+    }
+
+    public void countSymptoms(List<String> symptomsListe, List<String> uniqueSymptomsListe) {
+        // Comptage des occurrences
+        System.out.println("Symptoms list and their frequency : " + "\n" );
+        for (String symptom : uniqueSymptomsListe) {
+            int count = 0;
+            for (String s : symptomsListe) {
+                if (s.equals(symptom)) {
+                    count++;
+                }
+            }
+            System.out.println(symptom + " : " + count);
+        }
+    }
 }
+
+
